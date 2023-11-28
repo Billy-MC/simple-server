@@ -14,18 +14,6 @@ exports.forgotPassword = async (req, res) => {
 
 		const resetToken = existUser.createResetPasswordToken();
 
-		// const resetToken = randomBytes(32).toString('hex');
-
-		// await User.findOneAndUpdate(
-		// 	{ email },
-		// 	{
-		// 		$set: {
-		// 			resetPasswordToken: resetToken,
-		// 			resetPasswordExpires: new Date(Date.now() + 5 * 60 * 1000),
-		// 		},
-		// 	}
-		// );
-
 		const resetUrl = `http://metaform.com/resetPassword?resetToken=${resetToken}`;
 
 		const emailBody = emailService.emailTemplate.resetPassword(resetUrl);
@@ -51,8 +39,6 @@ exports.forgotPassword = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
 	const { password, resetToken } = req.body;
-	console.log('🚀 ~ file: user.js:52 ~ exports.resetPassword= ~ resetToken:', resetToken);
-	console.log('🚀 ~ file: user.js:52 ~ exports.resetPassword= ~ password:', password);
 
 	const existUser = await User.findOne({
 		resetPasswordToken: resetToken,
@@ -69,7 +55,9 @@ exports.resetPassword = async (req, res) => {
 			$set: {
 				password,
 				resetPasswordToken: '',
-				resetPasswordExpires: undefined,
+			},
+			$unset: {
+				resetPasswordExpires: '',
 			},
 		}
 	);
