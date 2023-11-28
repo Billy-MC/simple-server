@@ -31,10 +31,3 @@ exports.emailTemplate = {
 </article>
 	`,
 };
-
-// sendEmail({
-// 	to: 'billy2022002@hotmail.com',
-// 	from: 'metaFormTestEmail@gmail.com',
-// 	subject: 'Test Email',
-// 	emailBody: emailTemplate.resetPassword('http://google.com'),
-// });
