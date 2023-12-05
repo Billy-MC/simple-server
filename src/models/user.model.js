@@ -31,6 +31,12 @@ const UserSchema = new Schema({
 		type: Date,
 		default: undefined,
 	},
+	oAuthId: {
+		type: String,
+	},
+	oAuthProvider: {
+		type: String,
+	},
 });
 
 UserSchema.pre('save', async function (next) {
