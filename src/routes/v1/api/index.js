@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const helloWorldController = require('../../../controller/helloworld');
 const userController = require('../../../controller/user');
+const s3Controller = require('../../../controller/s3');
 const passport = require('passport');
 
 router.get('/', helloWorldController.index);
@@ -23,5 +24,9 @@ router.get(
 		successRedirect: 'http://localhost:3000',
 	})
 );
+
+router.get('/getPresignedUrl', s3Controller.getPresignedUrl);
+
+router.get('/getDownloadPresignedUrl', s3Controller.getDownloadPresignedUrl);
 
 module.exports = router;
